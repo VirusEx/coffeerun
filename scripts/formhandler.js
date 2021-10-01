@@ -27,7 +27,7 @@
                     console.log(item.name + ' is ' + item.value);
                 });
                 console.log(data);
-                fn(data);       // truck createOrder is currently fn
+                fn(data);         // truck createOrder is currently fn
                 this.reset();
                 this.elements[0].focus();
             });
