@@ -1,6 +1,7 @@
 (function (window) {
     'use strict';
     var App = window.App || {};
+    var Promise = window.Promise;
 
     class DataStore {
         constructor() {
@@ -8,10 +9,29 @@
             this.data = {};
             //        return undefined;
         }
-        add(key, val) { this.data[key] = val; }
-        get(key)      { return this.data[key]; }
-        getAll()      { return this.data; }
-        remove(key)   { delete this.data[key]; }
+
+        promiseResolvedWith(value) {
+            var promise = new Promise(function (resolve, reject) {
+                resolve(value);
+            });
+            return promise;
+        }
+
+
+        add(key, val) { 
+            // var promise = new Promise(function(reslove, reject) {
+            //     this.data[key] = val;
+            //     reslove(null);
+            // }.bind(this));
+            // return promise;
+            return this.promiseResolvedWith(null);
+        }
+        get(key)      { return this.promiseResolvedWith(this.data[key]); }
+        getAll()      { return this.promiseResolvedWith(this.data); }
+        remove(key)   { 
+            delete this.data[key]; 
+            return this.promiseResolvedWith(null);
+        }
 
         static runTests(ds) {
             ds.add('m@bond.com', 'tea');
