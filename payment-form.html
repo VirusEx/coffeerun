@@ -28,7 +28,7 @@
 </head>
 
 <body>
-    <form method="post">
+    <form id="target" data-payment="form" method="post">
         <h1>Payment form</h1>
         <p>Required fields are followed by <strong><abbr title="required">*</abbr></strong>.</p>
         <section>
@@ -106,8 +106,10 @@
             </p>
         </section>
         <section>
-            <p> <button type="submit" onclick="output()">Validate the payment</button> </p>
+            <p> <button type="submit">Validate the payment</button> </p>
         </section>
+        
+
     </form>
 
     <div id="dialog" title="Basic dialog">
@@ -115,12 +117,34 @@
     </div>
 
     <button id="opener">Open Dialog</button>
+    
+    <script>
+        
+        $( "#target" ).submit(function( event ) {
+            var values = {};
+            var title = 'Ace';
+            $.each($('#target').serializeArray(), function(i, field) {
+                values[field.name] = field.value;
+            })
+            
+            if (values.title==='A') {title = 'Ace'};
+            if (values.title==='K') {title = 'King'};
+            if (values.title==='Q') {title = 'Queen'};
+
+
+        event.preventDefault();
+        
+        alert( "Thank you, " + title + ' ' + values.username);
+        
+      });
+    </script>
 
     <!-- <script
     src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
     crossorigin="anonymous"></script> -->
 
-    <script src="scripts/paymentform.js" charset="utf-8"></script>
+    <!-- <script src="scripts/paymentform.js" charset="utf-8"></script>
+    <script src="scripts/formhandler.js" charset="utf-8"></script> -->
 </body>
 </html>
